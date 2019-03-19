@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="Alix VOINOT">
 
-    <title>Accueil</title>
+    <title>Pur Beurre</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -40,16 +40,35 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+            <form class="form-inline my-2 my-lg-0" role="form" method="post" action="{% url 'index' %}">
+                 {{ form.research }}
+                 {% csrf_token %}
+             </form>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">Barre de recherche</a>
-            </li>
-            <li class="nav-item">
+              <!-- {% if user.is_authenticated %}
+               afficher le logo mon compte + un lien vers la page mon compte
+               {% else %}
+               afficher le logo login + un lien vers la page de connexion
+               {% endif %}
+               -->
               <a class="nav-link js-scroll-trigger" href="#services">Mon compte</a>
             </li>
             <li class="nav-item">
+              <!-- {% if user.is_authenticated %}
+               afficher le logo carotte + un lien vers la page mes aliments
+               {% else %}
+               <p></p>
+               {% endif %}
+               -->
               <a class="nav-link js-scroll-trigger" href="#portfolio">Mes aliments</a>
             </li>
             <li class="nav-item">
+              <!-- {% if user.is_authenticated %}
+               afficher le logo deconnexion + appel à la vue pour se deco + un lien vers la page index
+               {% else %}
+               <p></p>
+               {% endif %}
+               -->
               <a class="nav-link js-scroll-trigger" href="#contact">Déconnexion</a>
             </li>
           </ul>
@@ -68,8 +87,13 @@
     
 
     <footer class="bg-primary row">
-      <p class="col-lg-6 text-center">Mentions légales</p>
-      <p class="col-lg-6 text-center">Contact</p>
+      <div class="col-lg-6 text-center">
+        <a  href="{% url 'mentions_legales' %}"> Mentions légales </a>
+      </div>
+      <div class="col-lg-6 text-center">
+        <a href="{% url 'index' %}#contact">Contact</a>
+      </div>
+
     </footer>
 
     <!-- Bootstrap core JavaScript -->
