@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
-from .forms import SearchForm, RegisterForm
+from django.shortcuts import render, redirect, HttpResponseRedirect
+from .forms import SearchForm, RegisterForm, LoginForm
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
 
 def register(request):
@@ -27,6 +28,26 @@ def register(request):
 
     return render(request, 'users/register.html', locals())
 
-def login(request):
 
-    return render(request, 'users/login.html')
+def connexion(request):
+
+    error = False
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+            else:
+                error = True
+    else:
+        form = LoginForm()
+    return render(request, 'users/login.html', locals())
+
+
+
+def deconnexion(request):
+    logout(request)
+    return HttpResponseRedirect('/')

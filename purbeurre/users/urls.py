@@ -3,6 +3,7 @@ from users import views
 
 urlpatterns = [
     path('enregistrement/', views.register, name="enregistrement"),
-    path('connexion', views.login, name="connexion"),
+    path('connexion/', views.connexion, name="connexion"),
+    path('deconnexion', views.deconnexion, name="deconnexion"),
 
 ]

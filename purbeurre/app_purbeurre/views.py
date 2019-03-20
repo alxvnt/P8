@@ -16,8 +16,7 @@ def home(request):
     else:
         form = SearchForm()
         form_body = HomeSearchForm()
-        return render(request, 'app_purbeurre/index.html', locals())
-
+    return render(request, 'app_purbeurre/index.html', locals())
 
 
 def mentions(request):

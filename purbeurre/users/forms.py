@@ -2,7 +2,7 @@ from django import forms
 
 
 class LoginForm(forms.Form):
-    pseudo = forms.CharField(
+    username = forms.CharField(
         label="Pseudo",
         max_length=20,
         widget=forms.TextInput(attrs={'placeholder': 'Votre pseudo', 'class': 'form-control'}),
