@@ -1,20 +1,5 @@
 from django.db import models
 
-
-class Store(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-
-    def __str__(self):
-        return str(self.name)
-
-
-class Brand(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-
-    def __str__(self):
-        return str(self.name)
-
-
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
@@ -23,11 +8,10 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, unique= True)
     category = models.ForeignKey('category', on_delete=models.CASCADE)
-    brand = models.ForeignKey('brand', on_delete=models.CASCADE)
-    store = models.ManyToManyField('store', related_name='product')
-    nutriscore = models.IntegerField()
+    rep_nutritionnel = models.URLField(null=True)
+    nutrition_grade = models.CharField(max_length=1, null=True)
     url = models.URLField()
     img = models.URLField()
 
@@ -44,6 +28,6 @@ class User(models.Model):
 
 
 class SavedSubstitute(models.Model):
-    product = models.ForeignKey('product', on_delete=models.CASCADE)
-    substitute = models.IntegerField()
+    product = models.ForeignKey('product', on_delete=models.CASCADE, verbose_name="related prod",related_name='fav_prod')
+    substitute = models.ForeignKey('product', on_delete=models.CASCADE, verbose_name="related sub", related_name='fav_sub')
     user = models.ForeignKey('user', on_delete=models.CASCADE)

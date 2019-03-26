@@ -14,5 +14,7 @@ Vous êtes connecté, {{ user.username }} !
     {{ form.as_p }}
     <input type="submit" value="Se connecter" />
 </form>
+
+<a href="{% url 'enregistrement'%}">Pas encore de compte ? Créer en un ici !</a>
 {% endif %}
 

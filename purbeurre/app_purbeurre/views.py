@@ -9,7 +9,7 @@ def home(request):
         form_body = HomeSearchForm(request.POST)
         if form.is_valid():
             prod = form.cleaned_data['research']
-            return redirect('/' + prod + '/')
+            return redirect('search/' + prod + '/')
         else:
             form = SearchForm()
             form_body = HomeSearchForm()

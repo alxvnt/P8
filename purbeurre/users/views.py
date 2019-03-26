@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect
 from .forms import SearchForm, RegisterForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib.auth.decorators import login_required
 
 def register(request):
 
@@ -47,7 +47,10 @@ def connexion(request):
     return render(request, 'users/login.html', locals())
 
 
-
 def deconnexion(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+def mon_compte(request):
+
+    return render(request, 'users/mon_compte.html')
