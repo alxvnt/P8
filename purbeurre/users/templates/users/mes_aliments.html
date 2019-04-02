@@ -1,1 +1,13 @@
-{% extends base.html %}
+{% extends 'base.html' %} {% load static %}
+
+{% block body %}
+    {% for n in fav %}
+
+        <p> {{ n.substitute }}</p>
+        <form class="form-inline my-2 my-lg-0" role="form" method="post" action="{% url 'suppression' %}">
+            {% csrf_token %}
+            <input type="hidden" name="delete_prod" value="{{ n.substitute }}" >
+            <button type=”submit” class="btn btn-sm btn-submit button-form">Supprimer</button>
+        </form>
+    {% endfor %}
+{% endblock %}

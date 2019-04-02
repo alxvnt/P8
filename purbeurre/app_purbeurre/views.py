@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import SearchForm, HomeSearchForm
-
+from .models import  SavedSubstitute
 
 def home(request):
 
@@ -30,6 +30,6 @@ def mentions(request):
             form = SearchForm()
     else:
         form = SearchForm()
-        return render(request, 'app_purbeurre/mentions_legales.html', locals())
+    return render(request, 'app_purbeurre/mentions_legales.html', locals())
 
 

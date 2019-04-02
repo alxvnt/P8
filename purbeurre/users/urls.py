@@ -6,5 +6,7 @@ urlpatterns = [
     path('connexion/', views.connexion, name="connexion"),
     path('deconnexion', views.deconnexion, name="deconnexion"),
     path('compte', views.mon_compte, name="compte"),
+    path('mes_aliments', views.fav, name="fav"),
+    path('suppression/', views.delete_product, name="suppression"),
 
 ]

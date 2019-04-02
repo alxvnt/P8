@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect, HttpResponseRedirect
 from .forms import SearchForm, RegisterForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from app_purbeurre.models import SavedSubstitute, Product
+from django.shortcuts import get_object_or_404
+
 
 def register(request):
 
@@ -51,6 +53,47 @@ def deconnexion(request):
     logout(request)
     return HttpResponseRedirect('/')
 
+
 def mon_compte(request):
 
-    return render(request, 'users/mon_compte.html')
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            prod = form.cleaned_data['research']
+            return redirect('/' + prod + '/')
+        else:
+            form = SearchForm()
+    else:
+        form = SearchForm()
+    return render(request, 'users/mon_compte.html', locals())
+
+
+def fav(request):
+
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            prod = form.cleaned_data['research']
+            return redirect('/' + prod + '/')
+        else:
+            form = SearchForm()
+    else:
+        form = SearchForm()
+
+    current_user = request.user
+    fav = SavedSubstitute.objects.filter(user=current_user.id)
+
+    return render(request, 'users/mes_aliments.html', locals())
+
+
+def delete_product(request):
+
+    if request.method == 'POST':
+
+        prod_name = request.POST.get('delete_prod')
+        prod_to_delete = Product.objects.get(name=prod_name)
+        current_user = request.user
+        SavedSubstitute.objects.get(substitute=prod_to_delete, user=current_user.id).delete()
+        return render(request, 'users/suppression.html', locals())
+
+    return render(request, 'users/suppression.html', locals())

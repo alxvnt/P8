@@ -13,6 +13,10 @@
 {% for n in list_prod %}
     <li><a href= {% url 'details' prod=n.name  %}>{{n.name }} </a>
         nutriscore : {{ n.nutrition_grade }}</li>
+        <form class="form-inline my-2 my-lg-0" role="form" method="post" action="{% url 'save_product' prod=n.name%}">
+            {% csrf_token %}
+            <button type=”submit” class="btn btn-sm btn-submit button-form">Sauvegarder</button>
+        </form>
     {% endfor %}
 </ul>
 

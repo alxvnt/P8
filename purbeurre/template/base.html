@@ -46,7 +46,7 @@
              </form>
             <li class="nav-item">
               {% if user.is_authenticated %}
-              <a class="nav-link js-scroll-trigger" href="">Mon compte</a>
+              <a class="nav-link js-scroll-trigger" href="{% url 'compte' %}">Mon compte</a>
                {% else %}
               <a class="nav-link js-scroll-trigger" href="{% url 'connexion' %}">Connexion</a>
                {% endif %}
@@ -54,7 +54,7 @@
             </li>
             <li class="nav-item">
               {% if user.is_authenticated %}
-               <a class="nav-link js-scroll-trigger" href="">Mes aliments</a>
+               <a class="nav-link js-scroll-trigger" href="{% url 'fav' %}">Mes aliments</a>
                {% else %}
                <p></p>
                {% endif %}

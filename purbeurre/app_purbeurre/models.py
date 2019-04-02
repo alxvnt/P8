@@ -28,6 +28,6 @@ class User(models.Model):
 
 
 class SavedSubstitute(models.Model):
-    product = models.ForeignKey('product', on_delete=models.CASCADE, verbose_name="related prod",related_name='fav_prod')
+
     substitute = models.ForeignKey('product', on_delete=models.CASCADE, verbose_name="related sub", related_name='fav_sub')
-    user = models.ForeignKey('user', on_delete=models.CASCADE)
+    user = models.IntegerField()
