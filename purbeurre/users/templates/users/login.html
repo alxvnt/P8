@@ -1,20 +1,37 @@
-<h1>Se connecter</h1>
+{% extends 'base.html' %} {% load static %}
 
-{% if error %}
-<p><strong>Utilisateur inconnu ou mauvais de mot de passe.</strong></p>
-{% endif %}
 
-{% if user.is_authenticated %}
-Vous êtes connecté, {{ user.username }} !
-<a href="{% url 'deconnexion' %}">Se déconnecter</a>
+{% block header %}
+    <section class="auth-pg">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h1 class="text-uppercase">
+                        <strong>Se connecter</strong>
+                    </h1>
+                    <hr>
+                </div>
+                <div class="col-lg-8 mx-auto">
+                   {% if error %}
+                        <p><strong>Utilisateur inconnu ou mauvais de mot de passe.</strong></p>
+                    {% endif %}
 
-{% else %}
-<form method="post" action=".">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Se connecter" />
-</form>
+                    {% if user.is_authenticated %}
+                    Vous êtes connecté, {{ user.username }} !
+                    <a href="{% url 'deconnexion' %}">Se déconnecter</a>
 
-<a href="{% url 'enregistrement'%}">Pas encore de compte ? Créer en un ici !</a>
-{% endif %}
+                    {% else %}
+                    <form method="post" action=".">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Se connecter" />
+                    </form>
 
+                    <a href="{% url 'enregistrement'%}">Pas encore de compte ? Créer en un ici !</a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from app_purbeurre.models import Product, SavedSubstitute, User
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 
 def prod_view(request, prod):
@@ -27,9 +28,13 @@ def save_product(request, prod):
 
     if request.method == 'POST':
 
-        fav = SavedSubstitute(substitute=prod_to_save,user=current_user.id)
-        if not fav:
-            fav.save()
+        #fav1 = get_object_or_404(SavedSubstitute, substitute=prod_to_save,user=current_user.id)
+
+        #if not fav1:
+        fav2 = SavedSubstitute(substitute=prod_to_save, user=current_user.id)
+        fav2.save()
+        print(fav2.substitute)
+
         return render(request, 'product/validation.html', locals())
 
     return render(request, 'app_purbeurre/index.html', locals())

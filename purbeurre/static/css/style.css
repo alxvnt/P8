@@ -1,4 +1,10 @@
-footer {
-    color: #345A61;
+.auth-pg {
 
+  background-color: #DE9440;
+}
+
+#footer1 {
+
+    height: 4%;
+    background-color: #345A61
 }
