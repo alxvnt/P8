@@ -1,7 +1,23 @@
 {% extends 'base.html' %} {% load static %}
 
-{% block body %}
+{% block header %}
+<div class="jumbotron text-center text-white mini-header" style="background-image:url('{% static 'img/header.jpg' %}')">
+  <img class="img-responsive">
+  <div class="container my-auto bg-title">
     <h1>AHOY {{ user.first_name }}</h1>
-
     <h2>Mail : {{user.email }}</h2>
+  </div>
+</div>
+{% endblock %}
+
+
+
+{% block body %}
+    <div class = "standard">
+        <div class ="text-center">
+            <h2>Mail : {{user.email }}</h2>
+        </div>
+    </div>
+
+
 {% endblock %}

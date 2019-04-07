@@ -1,8 +1,18 @@
-<h2>Liste de substitut</h2>
+{% extends 'base.html' %} {% load static %}
 
-<p>VOus avez recherché {{ research.name }}</p>
-<img src=" {{research.img }}" >
+{% block header %}
+<div class="jumbotron text-center text-white mini-header" style="background-image:url('{{research.img }}')">
+  <img class="img-responsive">
+  <div class="container my-auto bg-title">
+    <h2>
+      Vous avez recherché : {{ research.name }}
+    </h2>
+  </div>
+</div>
+{% endblock %}
 
+
+{% block body %}
 {% if not list_prod %}
 <p>Désolé, nous n'avons pas trouvé de substitut</p>
 
@@ -12,7 +22,16 @@
 <ul>
 {% for n in list_prod %}
     <li><a href= {% url 'details' prod=n.name  %}>{{n.name }} </a>
-        nutriscore : {{ n.nutrition_grade }}</li>
+
+
+        <div class="nutriscore">
+            <div class="text-center">
+                {{ n.nutrition_grade }}
+            </div>
+        </div>
+    </li>
+
+
         <form class="form-inline my-2 my-lg-0" role="form" method="post" action="{% url 'save_product' prod=n.name%}">
             {% csrf_token %}
             <button type=”submit” class="btn btn-sm btn-submit button-form">Sauvegarder</button>
@@ -21,3 +40,5 @@
 </ul>
 
 {% endif %}
+
+{% endblock%}

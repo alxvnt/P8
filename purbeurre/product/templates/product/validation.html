@@ -1,1 +1,11 @@
+{% extends 'base.html' %} {% load static %}
+
+{% if result %}
+
 <h1>Ce produit a bien été sauvegardé</h1>
+
+{% else %}
+
+<h1>Ce produit a déja été sauvegardé</h1>
+
+{% endif %}

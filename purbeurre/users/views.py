@@ -3,11 +3,14 @@ from .forms import SearchForm, RegisterForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from app_purbeurre.models import SavedSubstitute, Product
-from django.shortcuts import get_object_or_404
 
 
 def register(request):
-
+    """
+        Get all the data from
+        the register form and create
+        an object from the user's models
+    """
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -32,7 +35,9 @@ def register(request):
 
 
 def connexion(request):
-
+    """
+        Connect the user
+    """
     error = False
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -50,12 +55,18 @@ def connexion(request):
 
 
 def deconnexion(request):
+    """
+        Disconnect the user
+    """
     logout(request)
     return HttpResponseRedirect('/')
 
 
 def mon_compte(request):
-
+    """
+        Get all the product which
+        contains the parameter in their name
+    """
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
@@ -69,7 +80,10 @@ def mon_compte(request):
 
 
 def fav(request):
-
+    """
+        Get all the product which
+        have been save by the user
+    """
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
@@ -87,7 +101,9 @@ def fav(request):
 
 
 def delete_product(request):
-
+    """
+        Remove the select product
+    """
     if request.method == 'POST':
 
         prod_name = request.POST.get('delete_prod')

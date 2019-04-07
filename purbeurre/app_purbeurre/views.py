@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import SearchForm, HomeSearchForm
-from .models import  SavedSubstitute
+
 
 def home(request):
-
+    """  Return the homepage """
     if request.method == 'POST':
         form = SearchForm(request.POST)
         form_body = HomeSearchForm(request.POST)
@@ -20,7 +20,7 @@ def home(request):
 
 
 def mentions(request):
-
+    """  Return the  Legal notice"""
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
