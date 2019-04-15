@@ -1,17 +1,24 @@
 {% extends 'base.html' %} {% load static %}
 
 {% block header %}
-<h2>Liste produit</h2>
+<div class ="bck">
+
+    <div class="text-center">
+        <br><br><br>
+        <h2>Liste produit</h2>
+    </div>
+
 {% if not list_prod %}
-<p>Désolé, votre recherche n'a rien donnée</p>
+    <p>Désolé, votre recherche n'a rien donnée</p>
 
 {% else %}
-<h1>Voici une liste de produit qui pourraient vous intéressé</h1>
-<ul>
+
+    <ul>
 {% for n in list_prod %}
-    <li><a href = {% url 'result' prod=n.name  %}>{{n.name }}</a> </li>
-    {% endfor %}
-</ul>
+        <li><a href = {% url 'result' prod=n.name  %}>{{n.name }}</a> </li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endif %}
 

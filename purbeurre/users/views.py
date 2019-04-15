@@ -96,6 +96,10 @@ def fav(request):
 
     current_user = request.user
     fav = SavedSubstitute.objects.filter(user=current_user.id)
+    list_prod = []
+    for i in fav:
+        obj = Product.objects.get(name=i.substitute)
+        list_prod.append(obj)
 
     return render(request, 'users/mes_aliments.html', locals())
 

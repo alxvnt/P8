@@ -1,11 +1,38 @@
-<p>VOus avez recherché {{ details_prod.name }}</p>
-<img src= {{ details_prod.img }} >
+{% extends 'base.html' %} {% load static %}
 
-Nutriscore : <h1>{{ details_prod.nutrition_grade }}</h1>
+{% block header %}
 
-Informations nutritionelles : <img src ={{ details_prod.rep_nutritionnel }}>
+<div class="jumbotron text-center text-white mini-header" style="background-image:url('{{ details_prod.img }}')">
+  <img class="img-responsive">
+  <div class="container my-auto bg-title">
+      <h1>{{ details_prod.name }}</h1>
 
-<a href={{ details_prod.url }}>Voir la ficher openfoodfacts</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block body %}
+
+    <div class="details">
 
 
 
+    <div class="text-center">
+        <strong> Nutriscore</strong> : <h1>{{ details_prod.nutrition_grade }}</h1>
+    </div>
+
+    <div class="text-center">
+        <h3>Informations nutritionelles : </h3>
+        <img src ={{ details_prod.rep_nutritionnel }}>
+    </div>
+
+    <div class="text-center">
+        <a href={{ details_prod.url }}>Voir la fiche openfoodfacts</a>
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}

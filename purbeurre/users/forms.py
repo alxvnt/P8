@@ -16,7 +16,6 @@ class LoginForm(forms.Form):
     )
 
 
-
 class RegisterForm(forms.Form):
     username = forms.CharField(
         label="Pseudo",
@@ -49,11 +48,13 @@ class RegisterForm(forms.Form):
         required = True
     )
 
+
 class SearchForm(forms.Form):
     research = forms.CharField(
         label="Recherche",
         widget=forms.TextInput(attrs={'placeholder': 'Trouvez un aliment', 'class': 'form-control '})
     )
+
 
 class HomeSearchForm(forms.Form):
     research = forms.CharField(

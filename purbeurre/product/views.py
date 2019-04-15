@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from app_purbeurre.models import Product, SavedSubstitute, User
 from django.contrib.auth.decorators import login_required
+from app_purbeurre.forms import SearchForm
 
 
 def prod_view(request, prod):
@@ -8,9 +9,18 @@ def prod_view(request, prod):
     Get all the product which
     contains the parameter in their name
     """
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            prod = form.cleaned_data['research']
+            return redirect('/' + prod + '/')
+        else:
+            form = SearchForm()
+    else:
+        form = SearchForm()
     list_prod = Product.objects.filter(
         nutrition_grade__range = ('d', 'e'), name__icontains = prod)
-    return render(request, 'product/search.html', {'list_prod': list_prod})
+    return render(request, 'product/search.html', locals())
 
 
 def prod_result(request, prod):
@@ -18,6 +28,15 @@ def prod_result(request, prod):
         Get all the potential sub
         for the product in param
     """
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            prod = form.cleaned_data['research']
+            return redirect('/' + prod + '/')
+        else:
+            form = SearchForm()
+    else:
+        form = SearchForm()
     research = Product.objects.get(name= prod)
 
     list_prod = Product.objects.filter(
@@ -53,5 +72,14 @@ def prod_details(request, prod):
         and return the template which
         print product's information
     """
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            prod = form.cleaned_data['research']
+            return redirect('/' + prod + '/')
+        else:
+            form = SearchForm()
+    else:
+        form = SearchForm()
     details_prod = Product.objects.get(name=prod)
     return render(request, 'product/details.html', locals())

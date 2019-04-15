@@ -4,8 +4,8 @@
 <div class="jumbotron text-center text-white mini-header" style="background-image:url('{% static 'img/header.jpg' %}')">
   <img class="img-responsive">
   <div class="container my-auto bg-title">
-    <h1>AHOY {{ user.first_name }}</h1>
-    <h2>Mail : {{user.email }}</h2>
+    <h1>AHOY </h1>
+    <h2>{{ user.first_name }}</h2>
   </div>
 </div>
 {% endblock %}
@@ -13,11 +13,17 @@
 
 
 {% block body %}
-    <div class = "standard">
-        <div class ="text-center">
-            <h2>Mail : {{user.email }}</h2>
-        </div>
-    </div>
 
+<section class="standard">
+  <div class="container">
+    <h3 class="text-center">
+      {{ user.email }}
+    </h3>
+    <div class="row">
+      <div class="col-lg-12 mx-auto">
+      </div>
+    </div>
+  </div>
+</section>
 
 {% endblock %}

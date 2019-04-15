@@ -24,6 +24,7 @@ criteria = {
     "json": "1",
 }
 
+
 class Command(BaseCommand):
     help = "Import openfoodfact data in project's database"
 
