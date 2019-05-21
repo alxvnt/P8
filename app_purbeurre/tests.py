@@ -24,3 +24,24 @@ class RegisterTest(TestCase):
         fake_user = User.objects.get(email="fake@gmail.com")
         self.assertTrue(fake_user)
         self.assertRedirects(response, reverse("connexion"), status_code=302, target_status_code=200)
+
+class ProductTest(TestCase):
+
+    def setUp(self):
+        cat = Category.objects.create(
+            name_cat='Pizza',
+        )
+
+        Product.objects.create(
+            name_prod='pizza kebab',
+            nutrition_grade='d',
+            rep_nutritionnel='https://static.openfoodfacts.org/images/products/376/020/616/0102/ingredients_fr.12.full.jpg',
+            image='https://static.openfoodfacts.org/images/products/376/020/616/0102/front_fr.11.full.jpg',
+            url='https://fr.openfoodfacts.org/produit/3760206160102/yaourt-artisanal-noix-de-coco-ibaski',
+            category=Category.objects.get(name_cat=cat))
+
+    def test_add_product(self):
+        product = Product.objects.get(id=1)
+        expected_product_name = f'{product.name_prod}'
+
+        self.assertEqual(expected_product_name, 'test product')
