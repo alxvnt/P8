@@ -1,5 +1,6 @@
 from django.test import TestCase
 
+
 class RegisterTest(TestCase):
 
     def test_uses_signup_page(self):
