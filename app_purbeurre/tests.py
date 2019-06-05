@@ -1,6 +1,6 @@
 from django.urls import reverse
 from django.test import TestCase
-from .models import User, Category, Product
+from .models import User, Category, Product, SavedSubstitute
 from django.contrib.auth.models import User
 
 
@@ -48,3 +48,68 @@ class ProductTest(TestCase):
         expected_product_name = f'{product.name}'
 
         self.assertEqual(expected_product_name, 'pizza kebab')
+
+
+class UserFonctionTest(TestCase):
+
+    def setUp(self):
+        cat = Category.objects.create(
+            name='Pizza',
+        )
+
+        prod1 = Product.objects.create(
+            name='test1',
+            nutrition_grade='d',
+            rep_nutritionnel='https://static.openfoodfacts.org/images/products/376/020/test1',
+            img='https://static.openfoodfacts.org/images/products/376/020/616/0102/test1.11.full.jpg',
+            url='https://fr.openfoodfacts.org/produit/3760206160102/test1',
+            category=Category.objects.get(name=cat))
+
+        prod2 = Product.objects.create(
+            name='test2',
+            nutrition_grade='b',
+            rep_nutritionnel='https://static.openfoodfacts.org/images/products/376/020/test2',
+            img='https://static.openfoodfacts.org/images/products/376/020/616/0102/test2.11.full.jpg',
+            url='https://fr.openfoodfacts.org/produit/3760206160102/test2',
+            category=Category.objects.get(name=cat))
+
+        prod3 = Product.objects.create(
+            name='test3',
+            nutrition_grade='a',
+            rep_nutritionnel='https://static.openfoodfacts.org/images/products/376/020/test3',
+            img='https://static.openfoodfacts.org/images/products/376/020/616/0102/test3.11.full.jpg',
+            url='https://fr.openfoodfacts.org/produit/3760206160102/test3',
+            category=Category.objects.get(name=cat))
+
+        data = {"username": "test", "mail": "fake@gmail.com", "password": "123456",
+                "first_name": "Jogn", "last_name": "smith"
+                }
+
+        User.objects.create_user(data)
+
+        self.users = User.objects.get(username="test")
+
+        SavedSubstitute.objects.create(
+            substitute=prod3,
+            user=self.users
+
+        )
+
+    def test_connexion(self):
+
+        self.username = "test"
+        self.password = "123456"
+
+        response = self.client.post(reverse("connexion"), )
+        self.assertEqual(response.status_code, 200)
+
+    def test_fail_connexion(self):
+
+        self.username = "tset"
+        self.password = "654321"
+
+        response = self.client.post(reverse('connexion'),self.username)
+        self.assertEqual(response.status_code, 200)
+
+
+
