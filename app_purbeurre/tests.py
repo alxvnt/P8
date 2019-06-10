@@ -25,7 +25,37 @@ class RegisterTest(TestCase):
 
         self.assertTrue(fake_user.username, "test")
 
-        self.assertRedirects(response, reverse("connexion"), status_code=200, target_status_code=200)
+    def test_missing_username(self):
+
+        data = {"mail": "fake@gmail.com", "password": "123456",
+                "first_name": "Jogn", "last_name": "smith"
+                }
+
+        response = self.client.post(reverse("enregistrement"), data=data, follow=True,
+                                    HTTP_X_REQUESTED='XMLHttpRequest')
+        self.assertTrue(response.status_code, 200)
+        try:
+            User.objects.create_user(username=None, email="fake@gmail.com", password="123456")
+        except ValueError:
+            self.assertEqual(True, True)
+        except:
+            self.assertEqual(True, False)
+
+    def test_missing_password(self):
+
+        data = {"username": "test", "mail": "fake@gmail.com",
+                "first_name": "Jogn", "last_name": "smith"
+                }
+
+        response = self.client.post(reverse("enregistrement"), data=data, follow=True,
+                                    HTTP_X_REQUESTED='XMLHttpRequest')
+        self.assertTrue(response.status_code, 200)
+        try:
+            User.objects.create_user(username="test", email="fake@gmail.com", password=None)
+        except ValueError:
+            self.assertEqual(True, True)
+        except:
+            self.assertEqual(True, False)
 
 
 class ProductTest(TestCase):
@@ -57,7 +87,7 @@ class UserFonctionTest(TestCase):
             name='Pizza',
         )
 
-        prod1 = Product.objects.create(
+        self.prod1 = Product.objects.create(
             name='test1',
             nutrition_grade='d',
             rep_nutritionnel='https://static.openfoodfacts.org/images/products/376/020/test1',
@@ -65,7 +95,7 @@ class UserFonctionTest(TestCase):
             url='https://fr.openfoodfacts.org/produit/3760206160102/test1',
             category=Category.objects.get(name=cat))
 
-        prod2 = Product.objects.create(
+        self.prod2 = Product.objects.create(
             name='test2',
             nutrition_grade='b',
             rep_nutritionnel='https://static.openfoodfacts.org/images/products/376/020/test2',
@@ -73,7 +103,7 @@ class UserFonctionTest(TestCase):
             url='https://fr.openfoodfacts.org/produit/3760206160102/test2',
             category=Category.objects.get(name=cat))
 
-        prod3 = Product.objects.create(
+        self.prod3 = Product.objects.create(
             name='test3',
             nutrition_grade='a',
             rep_nutritionnel='https://static.openfoodfacts.org/images/products/376/020/test3',
@@ -85,22 +115,22 @@ class UserFonctionTest(TestCase):
                 "first_name": "Jogn", "last_name": "smith"
                 }
 
-        User.objects.create_user(data)
+        User.objects.create_user(username="test",
+                                 email="fake@gmail.com",
+                                 last_name="Jogn",
+                                 first_name="smith",
+                                 password="123456"
+                                )
 
         self.users = User.objects.get(username="test")
-
-        SavedSubstitute.objects.create(
-            substitute=prod3,
-            user=self.users
-
-        )
 
     def test_connexion(self):
 
         self.username = "test"
         self.password = "123456"
 
-        response = self.client.post(reverse("connexion"), )
+        data = {"username": self.username, "password": self.password}
+        response = self.client.post(reverse('connexion'), data=data, follow=True, HTTP_X_REQUESTED='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
 
     def test_fail_connexion(self):
@@ -108,8 +138,11 @@ class UserFonctionTest(TestCase):
         self.username = "tset"
         self.password = "654321"
 
-        response = self.client.post(reverse('connexion'),self.username)
+        data = {"username" : self.username, "password" : self.password}
+        response = self.client.post(reverse('connexion'),data= data , follow=True, HTTP_X_REQUESTED='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
 
+    def test_nutriscore(self):
 
+        self.assertEqual(self.prod3.nutrition_grade, "a")
 

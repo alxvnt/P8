@@ -10,6 +10,6 @@ class RegisterTest(TestCase):
 
 class TestAPI(TestCase):
 
-    def test_api(self):
-        response = self.client.get('https://fr.openfoodfacts.org/produit/20711269/saucisson-cuit-a-l-ail-saint-alby')
-        self.assertEqual(response.status_code, 200)
+    def test_fail_api(self):
+        response = self.client.get('https://fr.openfoodfacts.org/produit/winamx.fr')
+        self.assertEqual(response.status_code, 404)
