@@ -57,11 +57,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'purbeurre.urls'
 
+TEMP_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'template')
+            TEMP_DIR + '/template'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -139,4 +141,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 LOGIN_URL = '/connexion/'
 
 
-django_heroku.settings(locals())
