@@ -26,7 +26,7 @@ SECRET_KEY = 'z%_%gk+)p4si*-et++_25-l^qs1(d1nze2fuglrqlz-0=fw#$c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['209.97.182.187']
 
 
 # Application definition
@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'purbeurre.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'purbeurre',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': '',
+        'USER': 'alxvnt',
+        'PASSWORD': 'Projet10OC',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
@@ -132,11 +132,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(TEMP_DIR, "static"),
 )
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(TEMP_DIR, 'staticfiles') 
+
 LOGIN_URL = '/connexion/'
 
 
