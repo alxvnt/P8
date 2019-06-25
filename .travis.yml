@@ -1,0 +1,15 @@
+language: python
+python:
+        -'3.6'
+
+before_script:
+        - pip install pipenv
+        - pipenv install
+
+env: DJANGO_SETTINGS_MODULE="purbeurre.settings.travis"
+
+services:
+        - postgresql
+
+script:
+        - python3 manage.py test
