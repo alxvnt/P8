@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import SearchForm, HomeSearchForm
+import logging
 
+logger = logging.getLogger(__name__)
 
 def home(request):
     """  Return the homepage """
@@ -9,6 +11,8 @@ def home(request):
         form_body = HomeSearchForm(request.POST)
         if form.is_valid():
             prod = form.cleaned_data['research']
+            logger.info('New search', exc_info=True, extra={
+                'request': prod,})
             return redirect('search/' + prod + '/')
         else:
             form = SearchForm()
