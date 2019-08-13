@@ -3,6 +3,8 @@ from django.test import TestCase
 from .models import User, Category, Product, Commentary, CommentaryProduct
 from django.contrib.auth.models import User
 from datetime import date
+from django.contrib.auth import authenticate
+from django.contrib.auth.hashers import check_password
 
 
 class IndexPageTestCase(TestCase):
@@ -158,14 +160,14 @@ class UserFonctionTest(TestCase):
         com1 = Commentary.objects.create(com=com, com_date=date.today())
         self.assertEqual(com1.com, "Dupont : Horrible")
 
-    def test_connexion(self):
-
-        self.username = "test"
-        self.password = "123456"
-
-        data = {"username": self.username, "password": self.password}
-        response = self.client.post(reverse('connexion'), data=data, follow=True, HTTP_X_REQUESTED='XMLHttpRequest')
-        self.assertEqual(response.status_code, 200)
+    # def test_connexion(self):
+    #
+    #     self.username = "test"
+    #     self.password = "123456"
+    #
+    #     data = {"username": self.username, "password": self.password}
+    #     response = self.client.post(reverse('connexion'), data=data, follow=True, HTTP_X_REQUESTED='XMLHttpRequest')
+    #     self.assertEqual(response.status_code, 200)
 
     def test_fail_connexion(self):
 
@@ -180,3 +182,14 @@ class UserFonctionTest(TestCase):
 
         self.assertEqual(self.prod3.nutrition_grade, "a")
 
+
+class LoginTest(TestCase):
+
+    def setUp(self):
+        self.new_user = User.objects.create(email="nouveau@test.com", password="new_password")
+
+    def test_login(self):
+        self.logging = authenticate(email="nouveau@test.com", password="new_password")
+        if self.logging:
+            response = self.client.get(self.logging)
+            self.assertEqual(response['email'], "nouveau@test.com")
