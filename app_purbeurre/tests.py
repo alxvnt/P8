@@ -1,6 +1,6 @@
 from django.urls import reverse
 from django.test import TestCase
-from .models import User, Category, Product, SavedSubstitute
+from .models import User, Category, Product, Commentary, CommentaryProduct
 from django.contrib.auth.models import User
 
 
@@ -123,6 +123,15 @@ class UserFonctionTest(TestCase):
                                 )
 
         self.users = User.objects.get(username="test")
+
+#    def test_add_com(self):
+#        pass
+
+#    def test_com_username(self):
+#        pass
+
+#    def test_prod_com(self):
+#        pass
 
     def test_connexion(self):
 

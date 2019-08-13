@@ -30,5 +30,21 @@ class User(models.Model):
 
 class SavedSubstitute(models.Model):
 
-    substitute = models.ForeignKey('product', on_delete=models.CASCADE, verbose_name="related sub", related_name='fav_sub')
+    substitute = models.ForeignKey('product', on_delete=models.CASCADE, verbose_name="related sub",
+                                   related_name='fav_sub')
     user = models.IntegerField()
+
+
+class Commentary(models.Model):
+
+    com = models.CharField(max_length=400)
+    com_date = models.DateField(null=True)
+
+    def __str__(self):
+        return str(self.com)
+
+
+class CommentaryProduct(models.Model):
+
+    prod = models.ForeignKey('product', on_delete=models.CASCADE)
+    com = models.ForeignKey('commentary', on_delete=models.CASCADE)

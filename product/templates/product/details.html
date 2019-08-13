@@ -28,7 +28,28 @@
 
     <div class="text-center">
         <a href={{ details_prod.url }}>Voir la fiche openfoodfacts</a>
+        <br>
+        <br>
     </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4 offset-md-5 mx-auto " id="comform">
+
+            {% if com_prod %}
+            <h2>L'avis des consommateurs</h2>
+            <ul>
+                {% for n in com_prod %}
+                <p> {{ n.com }}  </p
+                {% endfor %}
+            {% endif %}
+            </ul>
+            <form class="form-group ui-widget col-md-12 col-md-offset-5 text-center searchbox" role="form" method="post" action="{% url 'add_com' prod=details_prod %}">
+                {{ com }}
+                {% csrf_token %}
+                <button type=”submit” class="btn btn-sm btn-submit button-form">Commenter</button>
+            </form>
+        </div>
+
 
 </div>
 

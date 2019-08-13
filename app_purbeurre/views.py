@@ -4,6 +4,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def home(request):
     """  Return the homepage """
     if request.method == 'POST':
