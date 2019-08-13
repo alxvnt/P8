@@ -134,9 +134,9 @@ class UserFonctionTest(TestCase):
     def test_com(self):
 
         com1 = Commentary.objects.get(id=1)
-        expected_product_name = f'{com1.com}'
+        expected_com_name = f'{com1.com}'
 
-        self.assertEqual(expected_product_name, 'Vraiment bon')
+        self.assertEqual(expected_com_name, 'Vraiment bon')
 
     def test_prod_com(self):
 
