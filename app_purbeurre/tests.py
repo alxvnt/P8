@@ -2,6 +2,7 @@ from django.urls import reverse
 from django.test import TestCase
 from .models import User, Category, Product, Commentary, CommentaryProduct
 from django.contrib.auth.models import User
+from datetime import date
 
 
 class IndexPageTestCase(TestCase):
@@ -124,14 +125,38 @@ class UserFonctionTest(TestCase):
 
         self.users = User.objects.get(username="test")
 
-#    def test_add_com(self):
-#        pass
+        self.com1 = Commentary.objects.create(com="Vraiment bon", com_date=date.today())
+        self.com2 = Commentary.objects.create(com="Delicieux", com_date=date.today())
+        self.com3 = Commentary.objects.create(com="Je ne recommande pas", com_date=date.today())
 
-#    def test_com_username(self):
-#        pass
+    def test_com(self):
 
-#    def test_prod_com(self):
-#        pass
+        com1 = Commentary.objects.get(id=1)
+        expected_product_name = f'{com1.com}'
+
+        self.assertEqual(expected_product_name, 'Vraiment bon')
+
+    def test_prod_com(self):
+
+        prod1 = Product.objects.get(name="test3")
+        com1 = Commentary.objects.create(com="Vraiment bon", com_date=date.today())
+        com2 = Commentary.objects.create(com="Delicieux", com_date=date.today())
+
+        com_prod1 = CommentaryProduct.objects.create(prod=prod1, com=com1)
+        com_prod2 = CommentaryProduct.objects.create(prod=prod1, com=com2)
+
+        list_com = CommentaryProduct.objects.filter(prod=prod1)
+
+        com_test = list_com[1].com
+        self.assertEqual(com_test.com, "Delicieux")
+
+    def test_com_username(self):
+        self.username = "Dupont"
+        char = "Horrible"
+
+        com = (self.username + " : " + char)
+        com1 = Commentary.objects.create(com=com, com_date=date.today())
+        self.assertEqual(com1.com, "Dupont : Horrible")
 
     def test_connexion(self):
 
